@@ -1,0 +1,7 @@
+```
+cd WORKING_DIR
+sh device/xiaomi/hermes/patches/install.sh
+sh device/xiaomi/hermes/patches/uninstall.sh
+```
+sh device/xiaomi/hermes/patches_decker/apply-patches.sh
+sh device/xiaomi/hermes/patches_decker/check-patches.sh

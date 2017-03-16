@@ -1,0 +1,28 @@
+commit 3e3e652cf6a5d193d32d063ab0b96fd51684a242
+Author: GSandeep96 <14311a0431@sreenidhi.edu.in>
+Date:   Mon Feb 20 19:34:30 2017 +0530
+
+    [PATCH] Check the length of ssid before nal_put.
+    Fix a potential dead lock in scanning. Scanning would fail when there is
+    ssid not connected before.
+    
+    Change-Id: Ifeefe73e7bc19d8ee311b56a510f4b2d2eca59f3
+
+diff --git a/src/drivers/driver_nl80211_scan.c b/src/drivers/driver_nl80211_scan.c
+index c115b6b..7ae625d 100644
+--- a/src/drivers/driver_nl80211_scan.c
++++ b/src/drivers/driver_nl80211_scan.c
+@@ -137,9 +137,10 @@ nl80211_scan_common(struct i802_bss *bss, u8 cmd,
+ 			wpa_hexdump_ascii(MSG_MSGDUMP, "nl80211: Scan SSID",
+ 					  params->ssids[i].ssid,
+ 					  params->ssids[i].ssid_len);
+-			if (nla_put(msg, i + 1, params->ssids[i].ssid_len,
+-				    params->ssids[i].ssid))
+-				goto fail;
++                       if (params->ssids[i].ssid_len)
++                               if (nla_put(msg, i + 1, params->ssids[i].ssid_len,
++                                           params->ssids[i].ssid))
++                                       goto fail;
+ 		}
+ 		nla_nest_end(msg, ssids);
+ 	} else {

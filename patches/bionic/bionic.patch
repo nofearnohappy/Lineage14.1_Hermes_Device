@@ -1,0 +1,28 @@
+commit 7e1950f439b99f50ce53695f2c4f022858681081
+Author: GSandeep96 <14311a0431@sreenidhi.edu.in>
+Date:   Mon Feb 20 19:24:35 2017 +0530
+
+    [PATCH]  __pthread_gettid(moved the symbol from private to global in libc.arm.map)
+    
+    Change-Id: Icd8e5b14ff61815953690d7ce33e1d0856561aad
+
+diff --git a/libc/libc.arm.map b/libc/libc.arm.map
+index 38f8437f4..15192e8fc 100644
+--- a/libc/libc.arm.map
++++ b/libc/libc.arm.map
+@@ -122,6 +122,7 @@ LIBC {
+     __pselect6; # arm x86 mips
+     __pthread_cleanup_pop;
+     __pthread_cleanup_push;
++    __pthread_gettid; # arm x86 mips nobrillo
+     __ptrace; # arm x86 mips
+     __putlong;
+     __putshort;
+@@ -1401,7 +1402,6 @@ LIBC_PRIVATE {
+     __page_size; # arm x86 mips nobrillo
+     __popcount_tab; # arm
+     __popcountsi2; # arm x86 mips
+-    __pthread_gettid; # arm x86 mips nobrillo
+     __restore_core_regs; # arm
+     __sclose; # arm x86 mips
+     __sdidinit; # arm x86 mips nobrillo
